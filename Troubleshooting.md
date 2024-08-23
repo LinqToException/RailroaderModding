@@ -139,3 +139,12 @@ Some recommendations:
 - **Automatically close things:** Whenever you open something (an object, array, or string), automatically write the corresponding closing character right away, then work away in the middle.
 - **Use a proper editor to your advantage:** Some editors offer you JSON validation (and sometimes formatting) built-in. Make use of that to track brackets and format the document.
 - **It's usually a comma.** Perhaps I'm personally biased, but that's what it is for me.
+
+## I've edited some track, but the switches/junctions are not spawning
+
+The game's mesh generator cannot create switches/junctions for segments that do not intersect properly, and this can cause the game to refuse to consider it a track - i.e. the switch is not just invisible, the segments do not exist at all. Generally speaking, the following rules apply:
+
+- The segments must diverge. If you have two (almost) straight pieces that never really separate, then the switch cannot be generated.
+- The segments need to be planar-ish. If you don't want to fiddle with trigonometry to figure out whether it's planar or not, for all nodes involved in the segment set the Y position to the same value, and make sure that the rotation's X and Z are both 0. If you do want to do trigonometry, make sure that ||(root.pos-branch1.pos)|| and ||(root.pos-branch2.pos)|| both have the same inclination (i.e. the y-incline is the same for both), and that the rotation on _all_ nodes is correct. If you're using Unity, `Quaternion.LookAtRotation` is your best friend for these scenarios - plop in the directional vector and voilà.
+- When live-editing track, it's possible that the switch was just not re-generated properly after you've adjusted it. Exit to the main menu and back again to make sure you have a decent, recent state.
+- Try to keep the segments somewhat short-ish. Running switches with exceedingly long or exotic splines can be problematic.
