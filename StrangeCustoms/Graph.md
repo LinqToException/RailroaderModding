@@ -34,14 +34,14 @@ As another rule of thumb, Strange Customs will _not_ validate your JSON or modif
 - All rotations are vectors of euler angles in local space (x is pitch, y is yaw, z is roll). You want x for uppy-downy, y for lefty-righty, and z to a barrel roll. This is different from the game's Definitions.json, which seems to use Quaternions instead.
 - Whenever an object is used, the key is usually the identifier.
 - Whenever a property is set to `null`, it is assumed that this identifier should be deleted, if it exists.
-- 
+
 ## Tracks
 
-The game's tracks are represented as a graph of Bézier curves, which consists of **Nodes**, **Segments** and **TrackSpans**, where **Locations** are also relevant.
+The game's tracks are represented as a graph of BÃ©zier curves, which consists of **Nodes**, **Segments** and **TrackSpans**, where **Locations** are also relevant.
 
 - **Nodes** are the foundation of the network. They have an ID, a position and a rotation.
 - **Segments** represent tracks. They have an ID, a start and end node, and some more metadata.
-- **TrackSegments** represent a piece of track that can span across multiple segments. If you can highlight something in-game on the tracks (e.g. industry tracks), those are spans. They are defined by an ID and two locations, an upper an lower. Segments must be normalized manually, i.e. the two locations must face in the correct way. **Experimental:** You can define `"normalize": true` to auto-normalize TrackSpans. This may not work with spans on/across added segments.
+- **Spans** represent a piece of track that can span across multiple segments. If you can highlight something in-game on the tracks (e.g. industry tracks), those are spans. They are defined by an ID and two locations, an upper an lower. Segments must be normalized manually, i.e. the two locations must face in the correct way. **Experimental:** You can define `"normalize": true` to auto-normalize TrackSpans. This may not work with spans on/across added segments.
 - **Locations** are both a position on the track and a facing direction. They are defined by a segment, an end that they are relative to, and the distance to that end. While it's possible that two locations would represent the same position, the direction would be different. As example, for a segment of length 100, the locations [start + 25] and [end + 75] would be at the same position, but face in opposite directions.
 
 The game has some implicit rules:
