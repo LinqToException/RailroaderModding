@@ -15,15 +15,15 @@ As mentioned before, horns patches are normal Railloader mods, and as such, are 
 
 ```json
 {
-	"manifestVersion": 4,
-	"id": "MyMod.CustomHorn",
-	"name": "My Custom Horn",
-	"version": "1.0",
-	"requires": [ "Zamu.StrangeCustoms" ],
+  "manifestVersion": 4,
+  "id": "MyMod.CustomHorn",
+  "name": "My Custom Horn",
+  "version": "1.0",
+  "requires": [ "Zamu.StrangeCustoms" ],
 
-	"mixintos": {
-		"horns": "file(my-horns.json)"
-	}
+  "mixintos": {
+    "horns": "file(my-horns.json)"
+  }
 }
 ```
 
@@ -44,25 +44,25 @@ The file referenced in the manifest is a horns container file, which contains th
 
 ```json
 [
-	{
-		"name": "Toot Toot",
-		"layers": [
-			{
-				"file": "file(layer0.ogg)",
-				"keyframes": [
-					{ "t": 0, "value": 1 },
-					{ "t": 1, "value": 0 },
-				]
-			},
-			{
-				"file": "file(layer1.ogg)",
-				"keyframes": [
-					{ "t": 1, "value": 0 },
-					{ "t": 0, "value": 1 }
-				]
-			}
-		]
-	}
+  {
+    "name": "Toot Toot",
+    "layers": [
+      {
+        "file": "file(layer0.ogg)",
+        "keyframes": [
+          { "t": 0, "value": 1 },
+          { "t": 1, "value": 0 },
+        ]
+      },
+      {
+        "file": "file(layer1.ogg)",
+        "keyframes": [
+          { "t": 1, "value": 0 },
+          { "t": 0, "value": 1 }
+        ]
+      }
+    ]
+  }
 ]
 ```
 
@@ -72,8 +72,8 @@ The array contains objects which have the following structure:
 - **layers** is an array that must contain exactly 2 layer objects. Each horn can have two layers, for example high horn/low horn, which are then interpolated between when quilling it.
   - **file** is the file reference to use for the horn. This must be a file() reference.
   - **keyframes** is an array that defines a curve to determine the volume of a source according to the "quilling" parameter.
-	- **t** is the "quilling factor", which goes from 0 to 1.
-	- **value** is the volume, from 0 to 1.
+  - **t** is the "quilling factor", which goes from 0 to 1.
+  - **value** is the volume, from 0 to 1.
 
 The above example defines therefore a horn called "Toot Toot", which uses layer0.ogg for low-quilling and layer1.ogg for high-quiling.
 

@@ -11,15 +11,15 @@ the basics and is more "straight to the point".
 
 ```json
 {
-	"manifestVersion": 6,
-	"id": "Berk2Geep",
-	"name": "Berk -> Geep",
-	"version": "1.0",
-	"requires": [ "Zamu.StrangeCustoms" ],
+  "manifestVersion": 6,
+  "id": "Berk2Geep",
+  "name": "Berk -> Geep",
+  "version": "1.0",
+  "requires": [ "Zamu.StrangeCustoms" ],
 
-	"mixintos": {
-		"game-migrations": "file(migrations.json)"
-	}
+  "mixintos": {
+    "game-migrations": "file(migrations.json)"
+  }
 }
 ```
 
@@ -31,15 +31,15 @@ An example JSON would look like this:
 
 ```json
 {
-	"waybillDestinations": {
-		"whittier_sawmill.s12": "sylva.interchange"
-	},
-	"properties": {
-		"my_industry.my_component": "Zamu.MyIndustry_MyComponent"
-	},
-	"carTypes": {
-		"ls-284-b65": "ld-gp9"
-	}
+  "waybillDestinations": {
+    "whittier_sawmill.s12": "sylva.interchange"
+  },
+  "properties": {
+    "my_industry.my_component": "Zamu.MyIndustry_MyComponent"
+  },
+  "carTypes": {
+    "ls-284-b65": "ld-gp9"
+  }
 }
 ```
 

@@ -4,19 +4,23 @@
 
 Strange Customs, using the same idea as for car JSON patches (see JsonPatches.md). They currently allow modders to (**C**reate, **R**ead, **U**pdate, **D**elete):
 
-- Track Layouts (Nodes, Segments, Spans) [CRUD]
-- Areas [\_RU\_]
+- Tracks
+  - Nodes [CRUD]
+  - Segments [CRUD]
+  - Spans [CRUD] (do NOT delete spans that are used by non-SC-managed resources, such as team tracks/progressions/passenger stops)
+- Areas [CRU\_]
 - Industries [CRUD]
 - Industry Components [CRUD] with some limitations:
-	- IndustryLoaderBase [CRUD]
-		- IndustryLoader [CRUD]
-		- TeleportLoadingIndustry [CRUD]
-	- Interchange [CRUD]
-	- InterchangedIndustryLoader [CRUD]
-	- FormulaicIndustry [CRUD]
-	- IndustryUnloader [CRUD]
-	- ProgressionIndustry [\_\_\_\_] (no special configuration)
-	- TeamTrack [\_\_\_\_] (not implemented yet)
+  - IndustryLoaderBase [CRUD]
+    - IndustryLoader [CRUD]
+    - TeleportLoadingIndustry [CRUD]
+  - Interchange [CRUD]
+  - InterchangedIndustryLoader [CRUD]
+  - FormulaicIndustry [CRUD]
+  - IndustryUnloader [CRUD]
+  - ProgressionIndustry [\_\_\_\_] (no special configuration)
+  - TeamTrack [\_\_\_\_] (not implemented yet)
+  - Generic IndustryComponents that implement `StrangeCustoms.Tracks.Industries.ICustomIndustryComponent` [CRUD]
 - Loads [CRU\_]
 - Scenery [CRUD] (UD only for specifically asset-based scenery and mod-spawned scenery)
 - Labels on the map and signposts [\_RU\_]
@@ -31,7 +35,7 @@ As another rule of thumb, Strange Customs will _not_ validate your JSON or modif
 - You can dump the current graph by enabling it in the options, then reloading a save-game.
 - Also available is an experimental auto-reload, which will cause any changes to any map mixinto to force the game to reload all map mixintos.
 - All positions are metric. x/z are the plane (right/forward); y is up. They are defined as objects with x/y/z attributes.
-- All rotations are vectors of euler angles in local space (x is pitch, y is yaw, z is roll). You want x for uppy-downy, y for lefty-righty, and z to a barrel roll. This is different from the game's Definitions.json, which seems to use Quaternions instead.
+- All rotations are vectors of euler angles in local space (x is pitch, y is yaw, z is roll). You want x for uppy-downy, y for lefty-righty, and z to do a barrel roll. This is different from the game's Definitions.json, which seems to use Quaternions instead.
 - Whenever an object is used, the key is usually the identifier.
 - Whenever a property is set to `null`, it is assumed that this identifier should be deleted, if it exists.
 

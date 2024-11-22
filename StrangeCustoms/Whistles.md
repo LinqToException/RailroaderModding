@@ -15,15 +15,15 @@ As mentioned before, horns patches are normal Railloader mods, and as such, are 
 
 ```json
 {
-	"manifestVersion": 5,
-	"id": "MyMod.CustomWhistle",
-	"name": "My Custom Whistle",
-	"version": "1.0",
-	"requires": [ "Zamu.StrangeCustoms" ],
+  "manifestVersion": 5,
+  "id": "MyMod.CustomWhistle",
+  "name": "My Custom Whistle",
+  "version": "1.0",
+  "requires": [ "Zamu.StrangeCustoms" ],
 
-	"mixintos": {
-		"whistles": "file(my-whistles.json)"
-	}
+  "mixintos": {
+    "whistles": "file(my-whistles.json)"
+  }
 }
 ```
 

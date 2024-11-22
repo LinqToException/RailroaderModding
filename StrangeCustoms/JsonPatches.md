@@ -31,15 +31,15 @@ As mentioned before, JSON patches are normal Railloader mods, and as such, are d
 
 ```json
 {
-	"manifestVersion": 3,
-	"id": "CheapFlatcars",
-	"name": "Cheap Flatcars",
-	"version": "1.0",
-	"requires": [ "Zamu.StrangeCustoms" ],
+  "manifestVersion": 3,
+  "id": "CheapFlatcars",
+  "name": "Cheap Flatcars",
+  "version": "1.0",
+  "requires": [ "Zamu.StrangeCustoms" ],
 
-	"mixintos": {
-		"container:fl-skeleton01": "file(skeleton.json)"
-	}
+  "mixintos": {
+    "container:fl-skeleton01": "file(skeleton.json)"
+  }
 }
 ```
 
@@ -68,9 +68,9 @@ Properties are followed through and will set the values as you would expect:
 
 ```json
 {
-	"definition": {
-		"basePrice": 1500
-	}
+  "definition": {
+    "basePrice": 1500
+  }
 }
 ```
 
@@ -83,12 +83,12 @@ All these instructions must be placed inside an object. In JSON, they look like 
 
 ```json
 {
-	"$find": [ { "path": ..., "value": ... } ],
-	"$clone": false,
-	"$add": ...,
-	"$remove": true,
-	"$replace": true,
-	"$optional": false
+  "$find": [ { "path": ..., "value": ... } ],
+  "$clone": false,
+  "$add": ...,
+  "$remove": true,
+  "$replace": true,
+  "$optional": false
 }
 ```
 
@@ -99,21 +99,21 @@ at the very beginning of a patch to find the right definition:
 
 ```json
 {
-	"objects": [
-		{
-			"$find": [ 
-				{ 
-					"path": "identifier",
-					"value": "pb-osgbrad-lightweight-steel-1915",
-					"comp": "equals"
-				}
-			],
+  "objects": [
+    {
+      "$find": [ 
+        { 
+          "path": "identifier",
+          "value": "pb-osgbrad-lightweight-steel-1915",
+          "comp": "equals"
+        }
+      ],
 
-			"definition": {
-				"basePrice": 125000
-			}
-		}
-	]
+      "definition": {
+        "basePrice": 125000
+      }
+    }
+  ]
 }
 ```
 
@@ -134,38 +134,38 @@ whatever is inside the object to the newly created object. This can be used if y
 ```json
 {
     "objects": [
-		{
-			"$find": [ { "path": "identifier", "value": "ls-260-g16" } ],
-			"$clone": true,
-			"identifier": "ls-260-g16-rtx",
-			"metadata": {
-				"name": "G-16 RTX"
-			},
-			"definition": {
-				"tenderIdentifier": "lt-260-g16-rtx",
-			}
-		},
-		{
-			"$find": [ { "path": "identifier", "value": "lt-260-g16" } ],
-			"$clone": true,
-			"identifier": "lt-260-g16-rtx",
-			"metadata": {
-				"name": "G-16 RTX"
-			},
-			"definition": {
-				"loadSlots": [
-					{
-						"$find": [ { "path": "requiredLoadIdentifier", "value": "coal" } ],
-						"maximumCapacity": 24000
-					},
-					{
-						"$find": [ { "path": "requiredLoadIdentifier", "value": "water" }],
-						"maximumCapacity": 8000
-					}
-				]
-			}
-		}
-	]
+    {
+      "$find": [ { "path": "identifier", "value": "ls-260-g16" } ],
+      "$clone": true,
+      "identifier": "ls-260-g16-rtx",
+      "metadata": {
+        "name": "G-16 RTX"
+      },
+      "definition": {
+        "tenderIdentifier": "lt-260-g16-rtx",
+      }
+    },
+    {
+      "$find": [ { "path": "identifier", "value": "lt-260-g16" } ],
+      "$clone": true,
+      "identifier": "lt-260-g16-rtx",
+      "metadata": {
+        "name": "G-16 RTX"
+      },
+      "definition": {
+        "loadSlots": [
+          {
+            "$find": [ { "path": "requiredLoadIdentifier", "value": "coal" } ],
+            "maximumCapacity": 24000
+          },
+          {
+            "$find": [ { "path": "requiredLoadIdentifier", "value": "water" }],
+            "maximumCapacity": 8000
+          }
+        ]
+      }
+    }
+  ]
 }
 ```
 
@@ -183,21 +183,21 @@ kindly to expected, but missing data.
 
 ```json
 {
-	"objects": [
-		{
-			"$find": [ { "path": "identifier", "value": "ls-280-c25" } ],
+  "objects": [
+    {
+      "$find": [ { "path": "identifier", "value": "ls-280-c25" } ],
 
-			"definition": {
-				"airhosePosition": { "$remove": true },
-				"wheelsets": [
-					{
-						"$find": [ { "path": "animation.clipName", "value": "Pilot" } ],
-						"$remove": true
-					}
-				]
-			}
-		}
-	]
+      "definition": {
+        "airhosePosition": { "$remove": true },
+        "wheelsets": [
+          {
+            "$find": [ { "path": "animation.clipName", "value": "Pilot" } ],
+            "$remove": true
+          }
+        ]
+      }
+    }
+  ]
 }
 ```
 
@@ -209,61 +209,85 @@ Removes the wheelsets and airhosePosition whose animation's clipName is "Pilot".
 
 ```json
 {
-	"objects": [
-		{
-			"$find": [ { "path": "identifier", "value": "ls-280-c25" } ],
+  "objects": [
+    {
+      "$find": [ { "path": "identifier", "value": "ls-280-c25" } ],
 
-			"definition": {
-				"airHosePosition": {
-					"$replace": [ 1, 2, -1 ]
-				},
-			},
+      "definition": {
+        "airHosePosition": {
+          "$replace": [ 1, 2, -1 ]
+        },
+      },
 
-			"components": [
-				{ 
-					"$find": [ { "path": "kind", "value": "ToggleAnimation" }, { "path": "name", "value": "Engineer Door" } ],
-					"transform": {
-						"$replace": {
-							"position": [ -1, 2, 3 ],
-							"rotation": [ 0, 0, 0, 0 ],
-							"scale": [ 1, 1, 2 ]
-						}
-					}
-				}
-			]
-		}
-	]
+      "components": [
+        { 
+          "$find": [ { "path": "kind", "value": "ToggleAnimation" }, { "path": "name", "value": "Engineer Door" } ],
+          "transform": {
+            "$replace": {
+              "position": [ -1, 2, 3 ],
+              "rotation": [ 0, 0, 0, 0 ],
+              "scale": [ 1, 1, 2 ]
+            }
+          }
+        }
+      ]
+    }
+  ]
 }
 ```
 
 Replaces the airhosePosition of the locomotive, and also replaces the entire transform of the Engineer Door component.
 
 #### `$add`
-`$add` can only be used in arrays, and will add the content of the property to the array at the end.
+`$add` can only be used in arrays, and will add the content of the property to the array at the end. If you wish to add multiple items to an array, you can either specify multiple `$add` entries, or use `$append`.
 
 ```json
 {
-	"objects": [
-		{
-			"$find": [ { "path": "identifier", "value": "ls-280-c25" } ],
-			"components": [
-				{ 
-					"$add": {
-						"kind": "ToggleAnimation",
-						"name": "New Animation",
-						"transform": {
-							"position": [ -1, 2, 3 ],
-							"rotation": [ 0, 0, 0, 0 ],
-							"scale": [ 1, 1, 2 ]
-						}
-					}
-				}
-			]
-		}
-	]
+  "objects": [
+    {
+      "$find": [ { "path": "identifier", "value": "ls-280-c25" } ],
+      "components": [
+        { 
+          "$add": {
+            "kind": "ToggleAnimation",
+            "name": "New Animation",
+            "transform": {
+              "position": [ -1, 2, 3 ],
+              "rotation": [ 0, 0, 0, 0 ],
+              "scale": [ 1, 1, 2 ]
+            }
+          }
+        }
+      ]
+    }
+  ]
 }
 ```
 
+#### `$append`
+`$append` can only be used in arrays, expects an array as value, and will append all items inside to the array. It is similar to `$add`, except it allows adding mutliple items at once.
+```json
+{
+  "$objectsByIdentifier": {
+    "ls-280-c25": {
+      "components": [
+        {
+          "$append": [
+            {
+              "kind": "ToggleAnimation",
+              "name": "NewAnimation"
+            },
+            {
+              "kind": "ToggleAnimation",
+              "name": "Other New Animation"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
+```
 
 #### `$optional`
 `$optional` is a bool that is only evaluated in conjunction with `$find`. When it is defined and `true`, then the patch will not fail if a `$find` instruction could not be found.
@@ -271,15 +295,15 @@ This is useful if you want to, for example, share a patch across multiple files,
 
 ```json
 {
-	"objects": [
-		{
-			"$find": [ { "path": "identifier", "value": "ls-404-unavailable" } ],
-			"$optional": true,
-			"metadata": {
-				"name": "But I still haven't found what I'm looking for"
-			}
-		}
-	]
+  "objects": [
+    {
+      "$find": [ { "path": "identifier", "value": "ls-404-unavailable" } ],
+      "$optional": true,
+      "metadata": {
+        "name": "But I still haven't found what I'm looking for"
+      }
+    }
+  ]
 }
 ```
 
@@ -288,4 +312,5 @@ Arrays are handled a bit special: Each element of an array must be an object, an
 used combinations:
 
 - `$find` and `$replace` or `$remove`: Find an element from the array and remove or replace it. Using `$optional`, you can write patches that _may_ fail. In case the element isn't found, the instruction is silently skipped.
-- `$add`: Add a new element to the array.
+- `$add`: Add a new element to the array. `$add` is meant for single-items to be added; if you wish to add multiple items, you can use `$append` instead.
+- `$append`: Add all elements of the value to the array. `$append` is meant for multiple items to be added, if you wish to add simply one, use `$add` instead.

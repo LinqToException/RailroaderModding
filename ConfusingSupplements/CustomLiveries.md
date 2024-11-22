@@ -1,23 +1,31 @@
 # Custom Liveries
 
-Beginning with 1.9, Strange Customs has the ability to offer livery customizations for rolling stock that has opted in to do so.
+ConfusingSupplements offers the ability for rolling stock to have "liveries", i.e. different paint schemes.
 
 **This is an experimental feature, subject to change.**
 
 ## Requirements
 
-In order for rolling stock to be eligible for texture swapping, in its Definitions.json entry, the `metadata.tags` array must contain the tag `"sc-livery-swappable"`. This serves as an opt-in mechanism.
+In order for rolling stock to be eligible for texture swapping, in its Definitions.json entry, there must be a `CS.LiverySwap` component:
+
+```cs
+{
+  "kind": "CS.LiverySwap"
+}
+```
+
+No configuration is needed, as this is simply a data holder/opt-in mechanism. Strange Customs' JSON patching can be used to add this entry to existing rolling stock.
 
 ## Dumping Textures
 
 To dump the textures of an existing, valid car, follow the following steps:
 
-0. Make sure that the vehicle you want to dump the textures from has the `sc-livery-swappable` tag. If it does not, the following steps will fail.
+0. Make sure that the vehicle you want to dump the textures from has the `CS.LiverySwap` component. If it does not, the following steps will fail.
 1. Select the car in-game (CTRL-Shift-Click)
 2. Open the console
-3. Enter `/sc-livery-dump`
+3. Enter `/cs-livery-dump`
 4. The game will freeze for a bit while dumping the textures
-5. If succcessful, the console will tell you the path it has dumped the textures into, relative to the game directory. This is usually in a folder called `SC Livery Dumps/$TYPE IDENTIFIER$`.
+5. If succcessful, the console will tell you the path it has dumped the textures into, relative to the game directory. This is usually in a folder called `CS Livery Dumps/$TYPE IDENTIFIER$`.
 
 Please note that the alpha channel is currently not dumped correctly, and therefore some features relying on alpha may not work correctly.
 
@@ -25,7 +33,7 @@ Please note that the alpha channel is currently not dumped correctly, and theref
 
 A livery mod is a normal Railloader mod that contains one or more directory mixintos.
 
-0. Make sure that the vehicle you want to apply the livery to has the `sc-livery-swappable` tag.
+0. Make sure that the vehicle you want to apply a livery for has the `CS.LiverySwap` component.
 1. Create a basic Railloader mod by creating a new folder inside `Mods/` named after your mod, with a Definition.json:
    ```json
    {
@@ -33,7 +41,7 @@ A livery mod is a normal Railloader mod that contains one or more directory mixi
      "id": "MyName.MyMod",
      "name": "My Amazing Liveries",
      "version": "1.0",
-     "requires": [ { "id": "Zamu.StrangeCustoms", "notBefore": "1.9.0" } ],
+     "requires": [ { "id": "Zamu.ConfusingSupplements", "notBefore": "1.1.0" } ],
      "mixintos": {
      }
    }

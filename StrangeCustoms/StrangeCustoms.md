@@ -12,7 +12,7 @@ No, and this functionality isn't planned for SC either. Someone could give it a 
 
 # How can I get a list of all nodes/segments/spans/industries/loads?
 
-In the Railloader settings for Strange Customs, check the _Dev Settings_ checkbox, then enable 
+In the Railloader settings for Strange Customs, check the _Dev Settings_ checkbox, then enable _Dump Initial Graph_.
 
 # How can I change the size of a loading/service area?
 
@@ -121,18 +121,18 @@ Editing the existing roads and rivers is possible with Strange Customs 1.8 and l
       "profile": "R2_Profile_River_Mountain",
       "style": "River",
       "offsetY": -4,
-			"points": [
-				{
-					"position": { "x": -27080, "y": 563, "z": -20567 },
-					"rotation": { "x": 0, "y": 0, "z": 0 },
-					"width": 4
-				},
-				{
-					"position": { "x": -27080, "y": 563, "z": -20627 },
-					"rotation": { "x": 0, "y": 0, "z": 0 },
-					"width": 4
-				}
-			]
+      "points": [
+        {
+          "position": { "x": -27080, "y": 563, "z": -20567 },
+          "rotation": { "x": 0, "y": 0, "z": 0 },
+          "width": 4
+        },
+        {
+          "position": { "x": -27080, "y": 563, "z": -20627 },
+          "rotation": { "x": 0, "y": 0, "z": 0 },
+          "width": 4
+        }
+      ]
     }
   }
 }
