@@ -86,6 +86,20 @@ Generally speaking, log files contain a lot of information, and usually can be u
 
 Strange Customs is trying to validate some, but not all, input given to it. It is, however, very noisy, especially with `--verbose`, and most issues can be solved with that.
 
+## After updating to SC 1.9+, I get a weird window and my tracks aren't loading properly.
+
+1. Read the window.
+2. Read the window again if you are still following this checklist and have not figured out the issue by now.
+3. One of the mods you're using is invalid and causes problems. Figuring out _which_ mod causes problems is not trivial; you can use the graph-dump.zip and give it to someone else to help them figure it out. If you want to go on your own, the message likely includes which segment/span/industry is affected; in the `changes-final.json` and `graph-final.json` you can then take a look at the final state of the game, and who probably caused the errors. It's not always obvious, however, and requires some knowledge about map modding.
+
+## Why does my mod not work with 1.9+ when it worked fine before?!
+
+Short answer: It didn't.
+
+Long answer: It never really did. SC 1.9 added more strict validation, which should have happened earlier. So far, it either silently ignored errors (only logging them in the log, which was apparently ignored by everyone), or allowed the creation of invalid segments/spans/industries. This then led to other issues later on, such as interchanges spawning endless cars, industries not loading, or tracks not being visible.
+
+SC 1.9 and later will have more strict validation, meaning mods that were previously built in an "unclean" way will no longer work. You cannot turn this behaviour off and you shouldn't want to, either. It's for your own good - you don't want to play with a half-patched game.
+
 ## "My Interchange spawns duplicate cars" / "My interchange does not spawn cars" / "My interchange spawns way too many of the same cars"
 
 This is potentially an issue with a modded industry, which is _not_ the one with the many cars. Check your log file for a message like `No car for filter `.
