@@ -17,7 +17,7 @@ Turns a car into a refiller, which will try to find an directly adjacent locomot
 - If both ends contain a target, a random one is selected and kept until it is decoupled
 
 Component JSON:
-```json
+```jsonc
 {
   "kind": "ConfusingSupplements.Refiller",
   "name": "Refiller",
@@ -43,7 +43,7 @@ An AssetPack asset which has the sign prefab.
 - Use the shared car shader for the mesh where the text should be projected; otherwise it will not show up.
 - There must be a collider somewhere which has the Pickable layer set. This will be used to determine the clicking area.
 
-```json
+```jsonc
 {
   "kind": "ConfusingSupplements.DestinationSign",
   "name": "DestinationSign",
@@ -66,6 +66,7 @@ An AssetPack asset which has the sign prefab.
     "Grnu"
   ]
 }
+```
 
 ## Bodygroups
 
@@ -78,7 +79,7 @@ Allows enabling/disabling children of the car/thing in question. Adjusted using 
 - Only one BG component per car is allowed.
 - The GOs are set active/inactive when they are chosen/unchosen. You can use this with scripts that use OnEnable/OnDisable or similar (e.g. animators, Audio Sources).
 
-```json
+```jsonc
 {
   "kind": "ConfusingSupplements.Bodygroups",
   "name": "Bodygroups",
@@ -117,7 +118,7 @@ Labelprinters allow additional text decals to be placed onto a car.
 - Editing it is a bit of a PITA, as it does not show up in the editor. This is based on laziness/some technical constraints.
 - Its definition is more or less the same as a Decal-component, with the exception of `group`.
 
-```json
+```jsonc
 {
   "kind": "ConfusingSupplements.LabelPrinter",
   // The first component's name will be displayed in the customization window.
@@ -139,11 +140,12 @@ Labelprinters allow additional text decals to be placed onto a car.
 
 A component that does absolutely nothing, but can be used to "highlight" tracks by supplying spans.
 
-```json
+```jsonc
 {
   "type": "ConfusingSupplements.IndustryComponents.Empty",
   "name": "Foobar Area",
   "trackSpans": [ "Pfoo", "Pbar" ]
+  "carTypeFilter": "*" // technically not required and more or less useless; expected by the game however.
 }
 ```
 
@@ -153,7 +155,7 @@ Similar to the IndustryLoader, but strictly used for captive freight, and conver
 - The units between loadId and convertedLoadId must be identical.
 - This component is not interacting with FormulaicIndustryComponents and will be ignored by them.
 
-```json
+```jsonc
 {
   "type": "ConfusingSupplements.IndustryComponents.CaptiveConversionLoader",
   "name": "Player Coal Load",
@@ -174,7 +176,7 @@ Similar to IndustryUnloader, but strictly used for captive freight, and converts
 - The max storage is defined in the loadId, i.e. the industry storage (not what's in the car).
 - If the convertedLoad defines a payout, it will be paid at the end of the day as long as >= 1 units have been unloaded.
 
-```json
+```jsonc
 {
   "type": "ConfusingSupplements.IndustryComponents.CaptiveConversionUnloader",
   "name": "Player Coal Unload",
@@ -191,7 +193,7 @@ Similar to IndustryUnloader, but strictly used for captive freight, and converts
 ## Pay4Resource
 Similar to a captive IndustryLoader, but will charge the player for purchasing resources. They are taken from the industry's storage, which must therefore exist.
 
-```json
+```jsonc
 {
   "type": "ConfusingSupplements.IndustryComponents.Pay4Resource",
   "name": "Purchasing Things",
