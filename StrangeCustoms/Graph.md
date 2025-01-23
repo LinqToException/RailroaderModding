@@ -150,6 +150,8 @@ Nodes themselves have no graphical presentation, and are usually not referenced 
       // The ID of the span, as referenced elsewhere
       // The game usually prefixes those with 'P'. It's recommended to add an unique identiifer, starting with your name/mod name as abbreviation.
       "PSCExample_5sZz2": {
+        // Optional: "normalize" will tell the game to look at the locations and "correct" them, i.e. make them face the right way. This usually makes the spans work properly for industries.
+        "normalize": true,
         // upper and lower define the two ends of the span and are identical, therefore only one will be documented
         "upper": {
           // ID of the segment that the upper is on
