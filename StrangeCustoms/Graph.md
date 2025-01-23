@@ -136,6 +136,7 @@ Nodes themselves have no graphical presentation, and are usually not referenced 
     }
   }
 }
+```
 
 ### TrackSpans
 **Spans** represent a piece of track that can span across multiple segments. If you can highlight something in-game on the tracks (e.g. industry tracks), those are spans. They are defined by an ID and two locations, an upper an lower. Segments must be normalized manually, i.e. the two locations must face in the correct way. You can define `"normalize": true` to auto-normalize TrackSpans. This may not work with spans on/across added segments. Note that a span has a purpose which defines which way its locations should face, which may differ between applications (i.e. one application may expects the locations to look outwards from the center of the span, while others expect them to point towards the center).
