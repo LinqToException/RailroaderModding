@@ -47,7 +47,7 @@ You can specify multiple JSONs; they will be loaded in the order they're defined
 // Definition.json
 {
   "mixintos": {
-    "game-graph": [ "file(tracks.json)", "file(areas.json"), "file(scenery.json)" ]
+    "game-graph": [ "file(tracks.json)", "file(areas.json)", "file(scenery.json)" ]
 }
 ```
 
@@ -174,19 +174,56 @@ Nodes themselves have no graphical presentation, and are usually not referenced 
 
 ## Industries
 
-- Industries are compound objects that consist of one or more components.
-- Each industry belongs to an area, which may also define when it is unlocked (at the time the area is unlocked, unless a map feature says otherwise).
-- Not all components are equally supported by Strange Customs at the moment.
-- If an industry is contract-based, values defined by components represent the highest-tier values. Lower tiers are scaled down.
-- The property key is the id of the industry and must be unqiue across all areas and mods. 
-- To add an industry, simply define a new key. For best effect, copy an existing industry and tweak it.
+Industries are compound objects that consist of one or more components. Industries themselves have no logic whatsoever, and at best have a storage, i.e. allow components to share loads between one another. However, this storage is just a number being thrown around - i.e. each component is interpreting a potential "maximum storage" itself.
+
+They belong to an area, which usually also defines when it is unlocked (at the time the area is unlocked, unless a map feature says otherwise). This assignment is done strictly by hierarchy, i.e. the position of the industry does not matter for this purpose.
+
+Contracts can be made with an industry, and components are free to interpret this as they please. Usually, they use a method which scales down the production/storage values, where the JSON defined values represent T5.
+
+The property key is the id of the industry and must be unqiue across all areas and mods. The area does not factor into the identifier, so all industries must have distinct ids, even if they are in separate areas. The industry ID is inherited by components, changing the industry id will change all component ids and invalidate waybills and saved properties (such as storage).
+
+To add an industry, simply create a new key in an area. To remove an industry, set it to `null`.
+
+Example:
+```jsonc
+{
+  "areas": {
+    // The area that the industry belongs to
+    "whittier": {
+      "industries": {
+        // The ID of the industry.
+        "whittier-sawmill": {
+          // The name of the industry, as shown to the user
+          "name": "Whittier Saw Mill",
+          // The position of the industry _relative to the area position_.
+          "localPosition": { "x": 237, "y": -2, "z": -872 },
+          // If true, this industry is contract-based and the player can select a contract tier.
+          // If false, the industry is not contract-based and components will usually pretend to have a T5 contract.
+          "usesContract": true,
+          // The list of components that define this industry
+          "components": {
+            // See below for details on components
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+**Important caveat:** Strange Customs takes some shortcuts for convenience's sake. In-game, each industry is represented as a GameObject with an `Industry` MonoBehaviour. In order to find its components, the industry calls `GetComponentsInChildren` to find (and cache) its components. This means that the order of the components is only semi-stable, and that the components can actually reside on multiple, or the same, GameObject. As some functionality relies on the `GameObject` (e.g. name), this means that sometimes components actually share some state that SC does not expose. In particular: Changing the name of one component may sometimes change the name of another, or not do anything at all (depending on the loading order).
 
 ### General for Components (IndustryComponent)
-- The key defines the id of the component. This must be unique within the industry, but is fine to be used within the game. The complete identifier of the component will be concatenated with the industry's identifier.
-- `trackSpans` is an array that can be manipulated with operations like `"trackSpans": [ { "$add": "P1234" } ]` or `$find`/`$remove`, or just flat-out `$replace`. Check the JsonPatches.md for further instructions.
-- `trackSpans` is usually used to determine some logic such as "what cars are spotted at the component right now", and may affect logistics operations.
-- Must have a valid `"type"` property and fitting metadata. Check the dump for advice on how to do so.
-- `carTypeFilter` is a wildcard-esque construct to define what cars are accepted for this industry, based on the car type. Check the dump for what is allowed. Usually it's wildcards and comma-separated-values.
+
+As mentioned above, the entire logic of an industry is contained within the components. Usually, every industry has at least one loader or unloader; in case of complex industries a formulaic industry may manage some more bits.
+
+Every industry component must inherit from `Model.Ops.IndustryComponent`. This in turn defines some basic properties that must be present:
+
+- **`type`:** The fully qualified C# type name that is used for this component. Currently, the type of a component cannot be changed, but new components can use mod-defined components.
+- **`name`:** The name of the component. This may be shared between components.
+- **`trackSpans:** An array of span ids. The interpretation of this property is up to the component; but it is usually used for path finding purposes and similar. If null, SC will default to an empty array. When editing this value, remember to use SC's array utilities such as `$add`, `$find`, and `$remove`. See [the section about JSON patches](JsonPatches.md) for more information.
+- **`carTypeFilter`:** A comma-separated string of car types that are handled by the component (in which way is, again, up to the component). An asterisk (*) represents "any character, including none". So `"Foo*"` will match `"Foo"`, `"Foobar"`, but not `"BarFoo"`. If not set or empty, SC will default to `"*"` (i.e. "allow any car").
+- **`SharedStorage`:** Again up to the component, but usually means that the component's storage is industry-wise (as opposed to component-wide). An example of an unshared storage would be the Connelly tracks, where each track (= each component) has its own production into its own storage.
 
 ### Formulaic Industries
 - Usually no `trackSpans` because it does not directly interact with cars.
