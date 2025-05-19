@@ -162,7 +162,7 @@ Nodes themselves have no graphical presentation, and are usually not referenced 
           "distance": 15
         },
         "lower": {
-          "segmentId": "SCExample_k91P25":,
+          "segmentId": "SCExample_k91P25",
           "end": "end",
           "distance": 0
         }
@@ -221,7 +221,7 @@ Every industry component must inherit from `Model.Ops.IndustryComponent`. This i
 
 - **`type`:** The fully qualified C# type name that is used for this component. Currently, the type of a component cannot be changed, but new components can use mod-defined components.
 - **`name`:** The name of the component. This may be shared between components.
-- **`trackSpans:** An array of span ids. The interpretation of this property is up to the component; but it is usually used for path finding purposes and similar. If null, SC will default to an empty array. When editing this value, remember to use SC's array utilities such as `$add`, `$find`, and `$remove`. See [the section about JSON patches](JsonPatches.md) for more information.
+- **`trackSpans`:** An array of span ids. The interpretation of this property is up to the component; but it is usually used for path finding purposes and similar. If null, SC will default to an empty array. When editing this value, remember to use SC's array utilities such as `$add`, `$find`, and `$remove`. See [the section about JSON patches](JsonPatches.md) for more information.
 - **`carTypeFilter`:** A comma-separated string of car types that are handled by the component (in which way is, again, up to the component). An asterisk (*) represents "any character, including none". So `"Foo*"` will match `"Foo"`, `"Foobar"`, but not `"BarFoo"`. If not set or empty, SC will default to `"*"` (i.e. "allow any car").
 - **`SharedStorage`:** Again up to the component, but usually means that the component's storage is industry-wise (as opposed to component-wide). An example of an unshared storage would be the Connelly tracks, where each track (= each component) has its own production into its own storage.
 
