@@ -32,14 +32,14 @@ Things to note:
 1. The `manifestVersion` should be 5 or higher, to make sure it's a recently enough Railloader version. Earlier versions of Railloader will load the mod, but not
    really process it.
 1. The `requires` makes sure that this mod can only be enabled if Strange Customs is also available.
-1. The `mixintos` statement is where you can define what file you wish to use to patch what other file.
+1. The `mixintos` statement is where you can define what file you wish to use to patch what other file. This uses the normal Railloader mixinto system.
 
 For this purpose, Strange Customs defines an alias which is called "whistles".
 
 Currently, it is required to specify the value of the mixinto in the `file()` pattern, where the inside of the "function" defines the path, relative to the Definition.json.
 A `file()` may not lead to an outside folder; it's therefore not allowed to load anything outside of the mods' own folder.
 
-## The whsitles JSON
+## The whistles JSON
 The file referenced in the manifest is a whistles container file, which contains the list of whistles to be added. It is a JSON array which contains objects and looks like this:
 
 ```json
